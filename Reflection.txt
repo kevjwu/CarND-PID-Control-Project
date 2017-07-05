@@ -1,0 +1,10 @@
+I used manual tuning to choose the hyperparameters for PID control, starting with the parameters given in the lesson (P = 0.2, I = 0.004, and D = 3.0). I’ll discuss these in the order that I tuned them in my project.
+
+- “P” controller:
+I found that the car’s path was oscillating a lot using this initial hyperparameter set, so I decreased the P component from 0.2 to 0.1; any smaller and the car would start to drive outside the lane lines as the influence of the cross-track error (CTE) would be too small for the car to adjust in a timely fashion. Increasing the P coefficient had the opposite effect, as expected; oscillations significantly increased and the car path became much more S-shaped.  
+
+- “D” controller:
+I found that occasionally the car was still driving very close to the lines. To try and fix, I increased the D coefficient so that the car would start to recenter its steering angle further away from the edges of the track. The D coefficient prevents the car from overshooting its reference path, and so I increased it to 4.0 to provide further protection against overshooting. Increasing it beyond that wasn’t ideal, as it confined the car to a very narrow region of the lane and caused irregular jerking movements - small, frequent changes in steering angle direction.
+
+- “I” controller:
+The car’s performance was significantly worse in the very beginning, which I attributed to the I component, the sum of all previous cross-track errors. This integral is going to have a high absolute value in the beginning before the car has made any changes in steering direction and the integral stabilizes around 0 (for a car with no systemic directional bias). If I is high, this will add to the P component and cause overshooting. I decreased I to 0.001 (from 0.004) and the car’s performance in the beginning significantly improved. 
